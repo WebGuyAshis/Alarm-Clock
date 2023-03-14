@@ -1,0 +1,668 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Removes the Default Scrollbar */
+::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    background-color: #d3e2f8;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+}
+
+/* Handling Notifications */
+#notifications{
+
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background-color: rgba(58, 54, 54, 0.8);
+    height: 0;
+    width: 0;
+    border-radius: 10px;
+    color: rgb(210, 211, 212);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+    overflow: hidden;
+}
+/* Notification Message */
+#msg{
+    height: 95%;
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* text-align: center; */
+}
+/* Alarm Container */
+#container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #eff7ff;
+    width: 90vw;
+    height: 90vh;
+    border-radius: 20px;
+    outline: 5px solid #78c7ff;
+    transition: 0.5s;
+}
+
+#alarm-container {
+    position: absolute;
+    top: 0;
+    height: 50%;
+    width: 100%;
+}
+
+/* Theme Dark/Light */
+#theme {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 30px;
+    text-align: center;
+    width: 90px;
+    height: 35px;
+    outline: 2px solid #78c7ff;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    z-index: 100;
+}
+
+#theme span {
+    height: 45px;
+    width: 45px;
+    color: #ffb700;
+}
+
+.theme-mode {
+    display: inline-block;
+    line-height: 45px;
+    width: 100%;
+    height: auto;
+    transition: 0.5s;
+    font-size: 20px;
+}
+
+#lightMode {
+    background-color: #78c7ff;
+}
+
+/* 12hr/24hrs toggler */
+#format-change{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-radius: 30px;
+    text-align: center;
+    width: 90px;
+    height: 35px;
+    outline: 2px solid #78c7ff;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    z-index: 100;
+}
+
+#format-change span {
+    height: 45px;
+    width: 45px;
+}
+.formats{
+    display: inline-block;
+    line-height: 45px;
+    width: 100%;
+    height: auto;
+    transition: 0.5s;
+    font-size: 20px;
+    color: rgb(0, 55, 123);
+
+}
+#twelvehrs{
+    background-color: #78c7ff;
+}
+
+/* Clock Container */
+#clock {
+    margin: 20px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    color: #3795f2;
+}
+
+/* For Date/Month/Day/Year */
+#date-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+}
+#day {
+    font-size: 20px;
+    opacity: 0.7;
+}
+#date {
+    font-size: 22px;
+}
+
+/* For Time and AM/PM */
+#time-container {
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#time {
+    box-shadow: rgba(100, 157, 165, 0.2) 0px 2px 24px;
+    width: 280px;
+    text-align: center;
+    font-size: 45px;
+    border-radius: 100px;
+    height: 50%;
+}
+
+#time-amPm {
+
+    display: inline-block;
+    font-size: 30px;
+}
+
+/* Alarm Clock Icon */
+#alarm-clock {
+    display: block;
+    font-size: 25px;
+    color: transparent;
+}
+
+/* Flippable Container -----------*/
+#flip-container {
+    position: absolute;
+    bottom: 10px;
+    height: 50%;
+    width: 100%;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Alarm List */
+#list {
+    display: block;
+    height: 90%;
+    width: 60%;
+    max-width: 700px;
+    margin: 15px auto;
+    overflow: scroll;
+    transition: 0.5s;
+    color: #1487f9;
+
+}
+
+.alarm-list-li {
+    position: relative;
+    list-style: none;
+    width: 90%;
+    height: 60px;
+    border-radius: 8px;
+    background-color: rgba(125, 147, 165, 0.2);
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+}
+/* List Alarm time */
+#alarm-time-set {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20px;
+    font-size: 24px;
+    height: inherit;
+    width: 180px;
+}
+
+#alarm-name {
+    margin-top: 2px;
+    font-size: 16px;
+}
+
+#destroy {
+    margin-right: 10px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    color: rgb(223, 109, 109);
+}
+
+#destroy :hover{
+    color: rgb(242, 39, 39);
+    transition: 0.5s;
+}
+
+/* Go to Set Alarm Page/ Flipping Button*/
+#set-alarm-button {
+    position: absolute;
+    background-color: #f76885;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 70px;
+    cursor: pointer;
+    transition: 0.5s;
+    z-index: 2;
+}
+
+#set-alarm-button:hover {
+    height: 65px;
+    width: 65px;
+    transition: 0.5s;
+}
+
+#add-alarm {
+    font-size: 40px;
+    color: #ffffff;
+}
+
+/* -------------------------------------- */
+
+/* For Flipped Container || Alarm set Page */
+#flipped-container {
+    display: none;
+    position: relative;
+    background-color: #cfe7ff;
+    margin: auto;
+    width: 90%;
+    height: 90%;
+    min-height: 300px;
+    max-width: 500px;
+    border-radius: 20px;
+    transition: 0.5s;  
+    overflow: hidden;
+}
+
+/* ALarm set container */
+#alarm {
+    position: absolute;
+    width: 80%;
+    height: 70%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Flip Button to List Page */
+#done-alarm-button {
+    display: none;
+    position: absolute;
+    background-color: #f76885;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 80px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+#done-alarm-button:hover {
+    height: 65px;
+    width: 65px;
+    transition: 0.5s;
+}
+
+/* icon */
+#done-alarm {
+    font-size: 40px;
+    color: #ffffff;
+}
+/* Take Hour, min, Second Inputs */
+#take-time {
+    width: 280px;
+    text-align: center;
+}
+
+.set-alarm-time {
+    margin: 5px;
+    border: none;
+    outline: 2px solid #78c7ff;
+    padding: 10px;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    border-radius: 8px;
+}
+
+/* to hide up and down arrows in Input type number */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* ---------------------------------------------- */
+
+#takeAmPm {
+    width: 150px;
+    height: 40px;
+    text-align: center;
+    margin: 6px auto;
+}
+
+#takeAmPm span {
+    display: inline-block;
+    height: 100%;
+    width: 60px;
+    font-size: 30px;
+    line-height: 40px;
+    border-radius: 20px;
+    color: white;
+}
+
+#alarm-text-container {
+    text-align: center;
+    margin: auto;
+    width: 90%;
+}
+
+#alarm-text {
+    height: 50px;
+    font-size: 25px;
+    width: 90%;
+    max-width: 500px;
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    color: #0080ff;
+    text-align: center;
+
+}
+/* Changing Styles in Placeholder */
+::placeholder {
+    color: rgb(98, 160, 247, 0.4);
+    font-size: 18px;
+    text-align: center;
+    margin-left: 5px;
+}
+
+/* Set Alarm Button */
+#done-button {
+    height: 40px;
+    width: 70px;
+    background-color: #218efa;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 40px;
+    margin: 5px auto;
+    color: white;
+    font-size: 20px;
+}
+
+/* Alarm Ringing Page Animation and Adjustments */
+
+@keyframes formRings {
+    0%{
+        height: 0;
+        width: 0;
+        opacity: 0;
+    }
+    50%{
+        height: 900px;
+        width: 900px;
+        opacity: 1;
+
+    }
+    100%{
+        height: 2000px;
+        width: 2000px;
+        opacity: 0;
+    }
+}
+@keyframes formRings2 {
+    0%{
+        height: 0px;
+        width: 0px;
+        opacity: 0;
+    }
+    50%{
+        height: 600px;
+        width: 600px;
+        opacity: 1;
+
+    }
+    100%{
+        height: 2000px;
+        width: 2000px;
+        opacity: 0;
+    }
+}
+
+@keyframes formRings3 {
+    0%{
+        height: 0px;
+        width: 0px;
+        opacity: 0;
+    }
+    50%{
+        height: 400px;
+        width: 400px;
+        opacity: 1;
+    }
+    100%{
+        height: 2000px;
+        width: 2000px;
+        opacity: 0;
+    }
+}
+#alarmRings-container{
+    display: none;
+    position: relative;
+    background-image: url(./Alarm\ Page.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100vw;
+    color: aliceblue;
+    overflow: hidden;
+}
+#show-date-time{
+    width: 300px;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#show-time{
+    font-size: 40px;
+}
+#show-date{
+    font-size: 18px;
+}
+
+#tap-btn {
+    position: absolute;
+    background-color: rgba(0,0,0,0.4);
+    height: 200px;
+    width: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius:50% ;
+    font-size:20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+#alarm-rings{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(228, 75, 121, 0.2);
+    animation: formRings 5s linear infinite alternate;
+}
+
+#alarm-rings2{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(231, 116, 150, 0.2);
+    animation: formRings2 5s linear infinite alternate;
+}
+#alarm-rings3{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(235, 148, 174, 0.2);
+    animation: formRings3 5s linear infinite alternate;
+}
+
+
+/* Handling For Different screen width */
+@media screen and (max-width:329px) {
+    #day {
+        font-size: 17px;
+    }
+    #date {
+        font-size: 22px;
+    }
+    #time {
+        font-size: 45px;
+        width: 280px;
+    }
+    #list {
+        width: 95%;
+    }
+    #list li {
+        height: 60px;
+    }
+    #alarm-time-set {
+        font-size: 20px;
+    }
+    #set-alarm-button ,#done-alarm-button{
+        height: 60px;
+        width: 60px;
+        line-height: 60px;
+    }
+
+    #take-time {
+        width: 200px;
+    }
+
+    .set-alarm-time {
+        width: 30px;
+        height:30px;
+    }
+
+    #alarm-text-container {
+        width: 90%;
+    }
+
+    #alarm-text {
+        width: 90%;
+        text-align: center;
+    }
+}
+
+@media (min-width:330px) and (max-width:550px) {
+    #day {
+        font-size: 17px;
+    }
+
+    #date {
+        font-size: 22px;
+    }
+    #list {
+        width: 95%;
+    }
+    #list li {
+        height: 60px;
+    }
+    #alarm-time-set {
+        font-size: 20px;
+    }
+
+    #set-alarm-button ,#done-alarm-button{
+        height: 60px;
+        width: 60px;
+        line-height: 60px;
+    }
+    .set-alarm-time {
+        width: 50px;
+        height:50px;
+    }
+    #alarm-text-container {
+        width: 90%;
+    }
+    #alarm-text {
+        width: 90%;
+        text-align: center;
+    }
+}
+
+@media (min-width: 550px) and (max-width:850px) {
+    #list {
+        width: 80%;
+    }
+}

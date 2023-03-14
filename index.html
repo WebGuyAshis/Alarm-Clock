@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alarm clock Project!</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <!-- CSS File -->
+    <link rel="stylesheet" href="alarm.css">
+</head>
+
+<body>
+
+    <!-- For Alert/Notifications -->
+    <div id="notifications">
+        <div id="msg"> "Fill Values Carefullly!! Failed to set Alarm!!"</div>
+    </div>
+
+    <!-- Alarm Container -->
+    <div id="container">
+
+        <!-- Theme -->
+        <div id="theme">
+            <span><i id="darkMode" class="bi bi-moon-fill theme-mode"></i></span>
+            <span><i id="lightMode" class="bi bi-brightness-high-fill theme-mode"></i></span>
+        </div>
+
+        <!-- Toggling Between 12hr/24hr -->
+        <div id="format-change">
+            <span id="twelvehrs" class="formats">12</span>
+            <span id="twentyfourhrs" class="formats">24</span>
+        </div>
+        <!-- Clock Container -->
+        <div id="alarm-container">
+            <!-- Clock -->
+            <div id="clock">
+                <div id="date-container">
+                    <span id="day">Sunday</span>
+                    <span id="date">Sep 22, 2023</span>
+                </div>
+                <div id="time-container">
+                    <div id="time">
+                        <span id="time-hour">08</span>
+                        <span>:</span>
+                        <span id="time-minute">20</span>
+                        <span>:</span>
+                        <span id="time-second">22</span>
+                    </div>
+                    <span id="time-amPm">AM</span>
+                    <span><i id="alarm-clock" class="bi bi-alarm-fill"></i></span>
+                </div>
+            </div>
+            <!-- Go to Alarm Set Page/ Flip Container -->
+            <div id="set-alarm-button">
+                <i id="add-alarm" class="bi bi-plus-lg"></i>
+            </div>
+        </div>
+        <!-- ----------------------- -->
+
+
+        <!-- Flipping Container -->
+        <div id="flip-container">
+            <!-- Alarm List -->
+            <ul id="list" class="front">
+                <!-- Inserting Lists via Javascript -->
+            </ul>
+
+            <!-- Flipped Container for Setting Alarm -->
+            <div id="flipped-container" class="back">
+
+                <!-- Set Alarm -->
+                <div id="alarm">
+                    <div id="take-time">
+                        <input id="set-alarm-hour" class="set-alarm-time" type="number" placeholder="HH" maxlength="2">
+                        <input id="set-alarm-minute" class="set-alarm-time" type="number" placeholder="MM"
+                            maxlength="2">
+                        <input id="set-alarm-second" class="set-alarm-time" type="number" placeholder="SS"
+                            maxlength="2">
+                    </div>
+                    <div id="takeAmPm">
+                        <span id="am">AM</span>
+                        <span id="pm">PM</span>
+                    </div>
+                    <div id="alarm-text-container">
+                        <input id="alarm-text" type="text" placeholder="Add a Text (Optional)">
+                    </div>
+                    <div id="done-button">
+                        Done
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Go to Alarm List Page/ Flip Container -->
+        <div id="done-alarm-button">
+            <i id="done-alarm" class="bi bi-music-note-list"></i>
+        </div>
+    </div>
+
+    <!-- Alarm Ring Page -->
+    <div id="alarmRings-container">
+        <div id="show-date-time">
+            <div id="show-time">
+                <span id="show-hour">06</span>
+                <span>:</span>
+                <span id="show-minute">30</span>
+                <span id="show-amPm">AM</span>
+            </div>
+            <div id="show-date">
+                <span id="show-today-date">22</span>
+                <span id="show-month">Feb</span>
+                <span id="show-day">Wednesday</span>
+            </div>
+        </div>
+        <!-- For Ring Animation -->
+        <div id="alarm-rings"></div>
+
+        <div id="alarm-rings2"></div>
+
+        <div id="alarm-rings3"></div>
+
+        <div id="tap-btn">Tap to Stop Alarm</div>
+    </div>
+
+    <!-- Script File -->
+    <script src="alarm.js"></script>
+</body>
+
+</html>
