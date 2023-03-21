@@ -29,13 +29,16 @@ const monthsName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep
 // To Play as Alarm
 const audio = new Audio('alarm_sound.mp3');
 
+let alarmTimeOut;
+
 function stopAlarm() {
     audio.pause();
     showNotification("Alarm Stopped!!")
+    clearTimeout(alarmTimeOut);
     alarmRinging = false;
     alarmPage.style.display = "none";
     container.style.display = "flex";
-    return;
+    // return;
 }
 
 
@@ -99,7 +102,7 @@ function updateTime() {
         audio.play();
         container.style.display = "none";
         alarmPage.style.display = "block";
-        setTimeout(function () {
+        alarmTimeOut =  setTimeout(function () {
             audio.pause();
             showNotification("Alarm Stopped!!")
             alarmPage.style.display = "none";
@@ -290,6 +293,7 @@ setHour.addEventListener("input", function () {
     if (isTwelveHrs) {
         if (setHour.value < 1 || setHour.value > 12 || setHour.value == ".") {
             // alert("Set Hour Correctly in 12hr Format!");
+
             showNotification("Set Hour Correctly in 12hr Format!");
             setHour.style.outline = "3px solid red";
             hourSetSuccess = false;
@@ -300,6 +304,7 @@ setHour.addEventListener("input", function () {
     } else {
         if (setHour.value < 0 || setHour.value > 23 || setHour.value == ".") {
             // alert("Set Hour Correctly in 24hr Format!");
+
             showNotification("Set Hour Correctly in 24hr Format!");
             setHour.style.outline = "3px solid red";
             hourSetSuccess = false;
@@ -314,6 +319,7 @@ setHour.addEventListener("input", function () {
 setMinute.addEventListener("input", function () {
     if (setMinute.value < 0 || setMinute.value > 59) {
         // alert("Set Minute Correctly!");
+
         showNotification("Set Minute Correctly!")
         setMinute.style.outline = "3px solid red";
         minuteSetSuccess = false;
@@ -327,6 +333,7 @@ setMinute.addEventListener("input", function () {
 setSecond.addEventListener("input", function () {
     if (setSecond.value < 0 || setSecond.value > 59) {
         // alert("Set Seconds Correctly!");
+
         showNotification("Set Seconds Correctly!")
         setSecond.style.outline = "3px solid red";
         secondSetSuccess = false;
