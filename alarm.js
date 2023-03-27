@@ -370,7 +370,7 @@ setSecond.addEventListener("input", function () {
     if (setSecond.value < 0 || setSecond.value > 59) {
         // alert("Set Seconds Correctly!");
 
-        showNotification("Set Seconds Correctly!")
+        showNotification("Set Seconds Correctly!");
         setSecond.style.outline = "3px solid red";
         document.getElementById('done-button').style.backgroundColor = 'red';
         secondSetSuccess = false;
@@ -429,9 +429,8 @@ function activateDonebtn() {
 
 // Creating Alarm Object when all the reqired fields are filled Correctly //For Twelve hrs
 function alarmset() {
-
     if (isTwelveHrs) {
-        if (hourSetSuccess === true && minuteSetSuccess === true && secondSetSuccess === true && amPmSetSuccess === true) {
+        if (hourSetSuccess && minuteSetSuccess && secondSetSuccess && amPmSetSuccess ) {
             let alarmText = document.getElementById("alarm-text");
             let hourKey;
             if (amPmValue == "PM" && setHour.value < 12) {
@@ -461,9 +460,10 @@ function alarmset() {
             setSecond.value = "";
             amPmValue = "";
             alarmText.value = "";
-            hourSetSuccess = "false";
-            minuteSetSuccess = "false";
-            amPmSetSuccess = "false";
+            hourSetSuccess = false;
+            minuteSetSuccess = false;
+            secondSetSuccess = false;
+            amPmSetSuccess = false;
             amValue.style.color = "white";
             pmValue.style.color = "white";
             // alert("Alarm Set Successfull!!");
@@ -473,7 +473,7 @@ function alarmset() {
             return;
         }
     } else if (!isTwelveHrs) {
-        if (hourSetSuccess === true && minuteSetSuccess === true && secondSetSuccess === true) {
+        if (hourSetSuccess  && minuteSetSuccess  && secondSetSuccess ) {
             amPmValue = "";
             let alarmText = document.getElementById("alarm-text");
             let alarm = {
