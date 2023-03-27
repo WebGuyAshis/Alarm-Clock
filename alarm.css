@@ -21,7 +21,6 @@ body {
 
 /* Handling Notifications */
 #notifications{
-
     position: fixed;
     top: 10px;
     left: 50%;
@@ -45,7 +44,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* text-align: center; */
 }
 /* Alarm Container */
 #container {
@@ -322,29 +320,6 @@ body {
     align-items: center;
 }
 
-/* Flip Button to List Page */
-#done-alarm-button {
-    display: none;
-    position: absolute;
-    background-color: #f76885;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 50%);
-    height: 70px;
-    width: 70px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 80px;
-    cursor: pointer;
-    transition: 0.5s;
-}
-
-#done-alarm-button:hover {
-    height: 65px;
-    width: 65px;
-    transition: 0.5s;
-}
-
 /* icon */
 #done-alarm {
     font-size: 40px;
@@ -359,7 +334,7 @@ body {
 .set-alarm-time {
     margin: 5px;
     border: none;
-    outline: 2px solid #78c7ff;
+    outline: 3px solid #78c7ff;
     padding: 10px;
     text-align: center;
     width: 60px;
@@ -428,10 +403,37 @@ input[type="number"]::-webkit-inner-spin-button {
     text-align: center;
     line-height: 40px;
     border-radius: 40px;
-    margin: 5px auto;
+    margin: 10px auto;
     color: white;
-    font-size: 20px;
+    font-size: 15px;
+    transition: 0.5s;
 }
+
+#close-container{
+    color: rgb(255, 0, 0);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-weight: 900;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+
+}
+#close-container:hover{
+    transition: 0.5s;
+    border-radius: 50%;
+    background-color: #f76885;
+    color: white;
+}
+/* #done-button:hover{
+    background-color: rgb(47, 156, 47);
+    border: 2px solid rgb(145, 199, 235);
+    transition: 0.5s;
+} */
 
 /* Alarm Ringing Page Animation and Adjustments */
 
@@ -600,7 +602,7 @@ input[type="number"]::-webkit-inner-spin-button {
     #alarm-time-set {
         font-size: 20px;
     }
-    #set-alarm-button ,#done-alarm-button{
+    #set-alarm-button{
         height: 60px;
         width: 60px;
         line-height: 60px;
@@ -643,7 +645,7 @@ input[type="number"]::-webkit-inner-spin-button {
         font-size: 20px;
     }
 
-    #set-alarm-button ,#done-alarm-button{
+    #set-alarm-button {
         height: 60px;
         width: 60px;
         line-height: 60px;

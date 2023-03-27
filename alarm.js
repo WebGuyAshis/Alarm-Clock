@@ -14,13 +14,24 @@ let showAmPm = document.getElementById("show-amPm");
 let showDate = document.getElementById("show-today-date");
 let showMonth = document.getElementById("show-month");
 let showDay = document.getElementById("show-day");
-
 let isTwelveHrs = true;
-
 let alarmPage = document.getElementById("alarmRings-container");
+let lists = document.getElementById("list");
+let flipContainer = document.getElementById("flip-container");
+let isDark = false;
 
 // To store the Alarm Inputs
 let alarmList = [];
+
+// Retrieving Alarm List from Local Storage if Exists
+let retrieveAlarms = JSON.parse(localStorage.getItem('alarmListLocal'));
+
+// Checking if alarm exists in local storage then copy the whole arry to alarmList
+if (localStorage.getItem('alarmListLocal') !== null) {
+    alarmList = [...retrieveAlarms];
+    // Render the Lists
+    renderList();
+}
 
 // Array of Days and Months to Update Clock
 const daysName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -44,7 +55,6 @@ function stopAlarm() {
 
 // Updating Clock Every Second
 function updateTime() {
-    console.log("isTwelveHrs", isTwelveHrs);
     let today = new Date();
 
     let thisyear = today.getFullYear();
@@ -99,10 +109,20 @@ function updateTime() {
     // Starts and Stops the alarm after 59 Seconds,
     function startAlarm() {
         audio.currentTime = "20";
-        audio.play();
+        audio.play()
+            .catch((err) => {
+                showNotification('Audio Muted. Please interact with the site to enable audio.');
+                console.log(`Due to a recent update in the Chrome browser, autoplay of media on web pages is now restricted by default. This means that media will not play automatically on page load unless the user has previously interacted with the site, such as by clicking on it. If you are experiencing issues with audio not playing after refreshing the page, it may be because the browser is not recognizing your previous interaction.
+
+                To enable autoplay, you will need to interact with the site again, such as by clicking on a button or link after page refreshes. Alternatively, you can adjust your browser's settings to allow autoplay for this site. Please note that allowing autoplay can impact your browsing experience, so it's recommended to only do so for trusted sites.
+                
+                This feature was launched on Chrome in April 2018 with the release of version 66. The autoplay policy is designed to give users more control over their browsing experience and reduce unwanted interruptions from autoplaying media. We apologize for any inconvenience this may cause and thank you for your understanding.
+                
+                `);
+            })
         container.style.display = "none";
         alarmPage.style.display = "block";
-        alarmTimeOut =  setTimeout(function () {
+        alarmTimeOut = setTimeout(function () {
             audio.pause();
             showNotification("Alarm Stopped!!")
             alarmPage.style.display = "none";
@@ -139,7 +159,6 @@ function updateTime() {
     }
     // ----------------------------------------------------------------
 }
-
 setInterval(updateTime, 1000);
 
 // Showing Notifications
@@ -164,6 +183,35 @@ function closeNotificaton() {
     notificationBox.style.width = "0";
 }
 
+// Handling 12hrs Format
+let twelveIcon = document.getElementById("twelvehrs");
+let twentyfourIcon = document.getElementById("twentyfourhrs");
+function twelveHrsFormat() {
+    isTwelveHrs = true;
+    twelveIcon.style.backgroundColor = "#f76885";
+    twentyfourIcon.style.backgroundColor = "transparent";
+    if (!isDark) {
+        twelveIcon.style.backgroundColor = "#78c7ff";
+    } else {
+        twelveIcon.style.backgroundColor = "#f76885";
+    }
+    currentAmPm.style.display = "block";
+    document.getElementById("takeAmPm").style.display = "block";
+}
+// Handling 24 hrs Format
+function twentyFourHrsFormat() {
+    isTwelveHrs = false;
+    twelveIcon.style.backgroundColor = "transparent";
+    if (!isDark) {
+        twentyfourIcon.style.backgroundColor = "#78c7ff";
+    } else {
+        twentyfourIcon.style.backgroundColor = "#f76885";
+    }
+    currentAmPm.style.display = "none";
+    document.getElementById("takeAmPm").style.display = "none";
+
+}
+
 // For Dark and Light Mode!
 const container = document.getElementById("container")
 const darkMode = document.getElementById("darkMode");
@@ -174,9 +222,8 @@ const clock = document.getElementById("clock");
 const flippedContainer = document.getElementById("flipped-container");
 
 
-
 function handleDarkMode() {
-    console.log("DarkMode On!!");
+    isDark = true;
     darkMode.style.backgroundColor = "#f76885";
     document.body.style.backgroundColor = "rgb(1,1,1)";
     container.style.backgroundColor = "#0f0f0f";
@@ -190,9 +237,15 @@ function handleDarkMode() {
     clock.style.color = "pink";
     lists.style.color = "pink";
     flippedContainer.style.backgroundColor = "#1D1D1E";
+    document.getElementById('format-change').style.outline = "2px solid #f76885";
+    if (isTwelveHrs) {
+        twelveIcon.style.backgroundColor = "#f76885";
+    } else {
+        twentyfourIcon.style.backgroundColor = "#f76885";
+    }
 }
 function handleLightMode() {
-    console.log("LightMode On!!");
+    isDark = false;
     document.body.style.backgroundColor = "#d3e2f8";
     container.style.backgroundColor = "#eff7ff";
     container.style.outline = "5px solid #78c7ff";
@@ -206,39 +259,20 @@ function handleLightMode() {
     flippedContainer.style.backgroundColor = "#cfe7ff";
     clock.style.color = " #3795f2";
     lists.style.color = "#1487f9";
+    document.getElementById('format-change').style.outline = "2px solid #78c7ff";
+    if (isTwelveHrs) {
+        twelveIcon.style.backgroundColor = "#78c7ff";
+    } else {
+        twentyfourIcon.style.backgroundColor = "#78c7ff";
+    }
 }
+
 
 // -------------------------------------------------------------------------
 
-
-let twelveIcon = document.getElementById("twelvehrs");
-let twentyfourIcon = document.getElementById("twentyfourhrs");
-// Handling 12hrs Format
-function twelveHrsFormat() {
-    isTwelveHrs = true;
-    twelveIcon.style.backgroundColor = "#f76885";
-    twentyfourIcon.style.backgroundColor = "transparent";
-    currentAmPm.style.display = "block";
-    document.getElementById("takeAmPm").style.display = "block";
-}
-// Handling 24 hrs Format
-function twentyFourHrsFormat() {
-    isTwelveHrs = false;
-    twelveIcon.style.backgroundColor = "transparent";
-    twentyfourIcon.style.backgroundColor = "#f76885";
-    currentAmPm.style.display = "none";
-    document.getElementById("takeAmPm").style.display = "none";
-
-}
-
-
-// Alarm Dialogue box-------------------------------------------------------
-let lists = document.getElementById("list");
-let flipContainer = document.getElementById("flip-container");
-
-
 // Opening ALarm Box// Closing Lists
 function openAlarmBox() {
+    activateDonebtn();
     flipContainer.style.width = "0%";
     flipContainer.style.height = "0%";
 
@@ -250,15 +284,13 @@ function openAlarmBox() {
         lists.style.display = "none";
     }, 300);
 
-    document.getElementById("done-alarm-button").style.display = "block";
     document.getElementById("set-alarm-button").style.display = "none";
 
-    console.log("Alarm Box Opened");
 }
 
 // Closing Alarm Box// Opening Lists
 function closeAlarmBox() {
-
+    clearInterval(miniInterval);
     flipContainer.style.width = "0%";
     flipContainer.style.height = "0%";
 
@@ -271,9 +303,7 @@ function closeAlarmBox() {
     }, 300);
 
     document.getElementById("set-alarm-button").style.display = "block";
-    document.getElementById("done-alarm-button").style.display = "none";
 
-    console.log("Alarm Box Closed");
 }
 
 // Setting Alarm Time
@@ -296,9 +326,11 @@ setHour.addEventListener("input", function () {
 
             showNotification("Set Hour Correctly in 12hr Format!");
             setHour.style.outline = "3px solid red";
+            document.getElementById('done-button').style.backgroundColor = 'red';
             hourSetSuccess = false;
         } else {
             setHour.style.outline = "3px solid lightgreen";
+            document.getElementById('done-button').style.backgroundColor = '#218efa';
             hourSetSuccess = true;
         }
     } else {
@@ -307,9 +339,11 @@ setHour.addEventListener("input", function () {
 
             showNotification("Set Hour Correctly in 24hr Format!");
             setHour.style.outline = "3px solid red";
+            document.getElementById('done-button').style.backgroundColor = 'red';
             hourSetSuccess = false;
         } else {
             setHour.style.outline = "3px solid lightgreen";
+            document.getElementById('done-button').style.backgroundColor = '#218efa';
             hourSetSuccess = true;
         }
     }
@@ -322,9 +356,11 @@ setMinute.addEventListener("input", function () {
 
         showNotification("Set Minute Correctly!")
         setMinute.style.outline = "3px solid red";
+        document.getElementById('done-button').style.backgroundColor = 'red';
         minuteSetSuccess = false;
     } else {
         setMinute.style.outline = "3px solid lightgreen";
+        document.getElementById('done-button').style.backgroundColor = '#218efa';
         minuteSetSuccess = true;
     }
 });
@@ -336,9 +372,11 @@ setSecond.addEventListener("input", function () {
 
         showNotification("Set Seconds Correctly!")
         setSecond.style.outline = "3px solid red";
+        document.getElementById('done-button').style.backgroundColor = 'red';
         secondSetSuccess = false;
     } else {
         setSecond.style.outline = "3px solid lightgreen";
+        document.getElementById('done-button').style.backgroundColor = '#218efa';
         secondSetSuccess = true;
     }
 });
@@ -361,13 +399,39 @@ if (isTwelveHrs) {
         amPmSetSuccess = true;
     }
 }
+// more interesting done button\
+let miniInterval;
+function activateDonebtn() {
+    miniInterval = setInterval(() => {
+        if (hourSetSuccess && minuteSetSuccess && secondSetSuccess && amPmSetSuccess) {
+            document.getElementById('done-button').style.backgroundColor = 'rgb(47, 156, 47)';
+        }
+
+        if (setHour.value == "") {
+            setHour.style.outline = "3px solid #78c7ff";
+        }
+        if (setMinute.value == "") {
+            setMinute.style.outline = "3px solid #78c7ff";
+        }
+        if (setSecond.value == "") {
+            setSecond.style.outline = "3px solid #78c7ff";
+        }
+
+        if (setHour.value == "" || setMinute.value == "" || setSecond.value == "") {
+            document.getElementById('done-button').style.backgroundColor = '#218efa';
+        }
+
+        if ((!hourSetSuccess && setHour.value != "") || (!minuteSetSuccess && setMinute.value != "") || (!secondSetSuccess && setSecond.value != "")) {
+            document.getElementById('done-button').style.backgroundColor = 'red';
+        }
+    }, 10);
+}
 
 // Creating Alarm Object when all the reqired fields are filled Correctly //For Twelve hrs
 function alarmset() {
 
     if (isTwelveHrs) {
         if (hourSetSuccess === true && minuteSetSuccess === true && secondSetSuccess === true && amPmSetSuccess === true) {
-            console.log(setHour.value, ":", setMinute.value, ":", setSecond.value, amPmValue);
             let alarmText = document.getElementById("alarm-text");
             let hourKey;
             if (amPmValue == "PM" && setHour.value < 12) {
@@ -378,7 +442,7 @@ function alarmset() {
             else {
                 hourKey = setHour.value;
             }
-    
+
             let alarm = {
                 hour: hourKey,
                 minute: setMinute.value,
@@ -388,7 +452,7 @@ function alarmset() {
                 id: Date.now(),
             }
             alarmList.push(alarm);
-    
+
             showAmPm.innerText = amPmValue; //Setting Up the AMPm
             renderList();
             // Refreshing the list after pushing the Alarm Object in AlarmList Array
@@ -403,13 +467,13 @@ function alarmset() {
             amValue.style.color = "white";
             pmValue.style.color = "white";
             // alert("Alarm Set Successfull!!");
+            closeAlarmBox();
             showNotification("Alarm Set Successfull!")
-    
+
             return;
         }
-    }else if(!isTwelveHrs){
+    } else if (!isTwelveHrs) {
         if (hourSetSuccess === true && minuteSetSuccess === true && secondSetSuccess === true) {
-            console.log(setHour.value, ":", setMinute.value, ":", setSecond.value);
             amPmValue = "";
             let alarmText = document.getElementById("alarm-text");
             let alarm = {
@@ -421,7 +485,7 @@ function alarmset() {
                 id: Date.now(),
             }
             alarmList.push(alarm);
-    
+
             showAmPm.innerText = amPmValue; //Setting Up the AMPm
             renderList();
             // Refreshing the list after pushing the Alarm Object in AlarmList Array
@@ -432,8 +496,8 @@ function alarmset() {
             hourSetSuccess = "false";
             minuteSetSuccess = "false";
             // alert("Alarm Set Successfull!!");
-            showNotification("Alarm Set Successfull!")
-    
+            showNotification("Alarm Set Successfull!");
+            closeAlarmBox();
             return;
         }
     }
@@ -443,6 +507,8 @@ function alarmset() {
 
 // Rendering List after Manipulation or Object Creation/Deletion
 function renderList() {
+    // Copying all the elements of alarmList to local Storage
+    localStorage.setItem('alarmListLocal', JSON.stringify(alarmList));
     lists.innerHTML = '';
     for (let element of alarmList) {
         addAlarmList(element);
@@ -485,7 +551,6 @@ function addAlarmList(timeObj) {
 
 // Deleting Alarm
 function deleteAlarm(dataId) {
-    console.log("Alarm Deleted!");
     let newAlarmList = alarmList.filter(function (alarm) {
         return alarm.id !== Number(dataId);
     });
@@ -498,8 +563,7 @@ function deleteAlarm(dataId) {
 function handleClicks(event) {
     let target = event.target;
     let fetchId = target.id;
-    console.log("Target:", target, "ID:", fetchId);
-
+    
     if (fetchId == "darkMode" || fetchId == "darkModeflipped") {
         handleDarkMode();
     }
@@ -515,7 +579,7 @@ function handleClicks(event) {
         handleLightMode();
     }
 
-    if (fetchId == "done-alarm-button" || fetchId == "done-alarm") {
+    if (fetchId == "close-container") {
         closeAlarmBox();
     }
 
