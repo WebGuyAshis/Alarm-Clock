@@ -23,6 +23,9 @@ let isDark = false;
 // To store the Alarm Inputs
 let alarmList = [];
 
+// alarmobject
+let alarm;
+
 // Retrieving Alarm List from Local Storage if Exists
 let retrieveAlarms = JSON.parse(localStorage.getItem('alarmListLocal'));
 
@@ -108,6 +111,7 @@ function updateTime() {
 
     // Starts and Stops the alarm after 59 Seconds,
     function startAlarm() {
+        pushNotification();
         audio.currentTime = "20";
         audio.play()
             .catch((err) => {
@@ -445,7 +449,7 @@ function alarmset() {
                 hourKey = setHour.value;
             }
 
-            let alarm = {
+            alarm = {
                 hour: hourKey,
                 minute: setMinute.value,
                 second: setSecond.value,
@@ -476,7 +480,7 @@ function alarmset() {
         if (hourSetSuccess  && minuteSetSuccess  && secondSetSuccess ) {
             amPmValue = "";
             let alarmText = document.getElementById("alarm-text");
-            let alarm = {
+            alarm = {
                 hour: setHour.value,
                 minute: setMinute.value,
                 second: setSecond.value,
@@ -556,6 +560,12 @@ function deleteAlarm(dataId) {
     renderList();
 }
 
+function pushNotification(){
+    Push.create("Alarm is Ringing", {
+        timeout: 4000,
+        icon:'./favicon.png',
+      });      
+}
 
 // Handling All Clicks
 function handleClicks(event) {
