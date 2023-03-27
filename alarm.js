@@ -408,12 +408,15 @@ function activateDonebtn() {
         }
 
         if (setHour.value == "") {
+            hourSetSuccess = false;
             setHour.style.outline = "3px solid #78c7ff";
         }
         if (setMinute.value == "") {
+            minuteSetSuccess = false;
             setMinute.style.outline = "3px solid #78c7ff";
         }
         if (setSecond.value == "") {
+            secondSetSuccess = false
             setSecond.style.outline = "3px solid #78c7ff";
         }
 
@@ -460,9 +463,6 @@ function alarmset() {
             setSecond.value = "";
             amPmValue = "";
             alarmText.value = "";
-            hourSetSuccess = false;
-            minuteSetSuccess = false;
-            secondSetSuccess = false;
             amPmSetSuccess = false;
             amValue.style.color = "white";
             pmValue.style.color = "white";
@@ -493,8 +493,6 @@ function alarmset() {
             setMinute.value = "";
             setSecond.value = "";
             alarmText.value = "";
-            hourSetSuccess = "false";
-            minuteSetSuccess = "false";
             // alert("Alarm Set Successfull!!");
             showNotification("Alarm Set Successfull!");
             closeAlarmBox();
