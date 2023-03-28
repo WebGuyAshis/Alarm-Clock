@@ -1,3 +1,10 @@
+const setVh = () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+};
+setVh();
+window.addEventListener('resize', setVh);
+
 // Fetching IDs/ DOM Manipulation
 let currentDay = document.getElementById("day");
 let currentDate = document.getElementById("date");
