@@ -83,6 +83,8 @@ body {
     align-items: center;
     overflow: hidden;
     z-index: 100;
+    cursor: pointer;
+
 }
 
 #theme span {
@@ -132,6 +134,7 @@ body {
     transition: 0.5s;
     font-size: 20px;
     color: rgb(0, 55, 123);
+    cursor: pointer;
 
 }
 #twelvehrs{
@@ -256,11 +259,13 @@ body {
     align-items: center;
     font-size: 25px;
     color: rgb(223, 109, 109);
+    cursor: pointer;
 }
 
-#destroy :hover{
-    color: rgb(242, 39, 39);
+#destroy:hover{
+    color: rgb(225, 15, 15);
     transition: 0.5s;
+    cursor: pointer;
 }
 
 /* Go to Set Alarm Page/ Flipping Button*/
@@ -369,6 +374,8 @@ input[type="number"]::-webkit-inner-spin-button {
     line-height: 40px;
     border-radius: 20px;
     color: white;
+    cursor: pointer;
+
 }
 
 #alarm-text-container {
@@ -409,6 +416,8 @@ input[type="number"]::-webkit-inner-spin-button {
     color: white;
     font-size: 15px;
     transition: 0.5s;
+    cursor: pointer;
+
 }
 
 #close-container{
@@ -423,7 +432,7 @@ input[type="number"]::-webkit-inner-spin-button {
     justify-content: center;
     align-items: center;
     transition: 0.5s;
-
+    cursor: pointer;
 }
 #close-container:hover{
     transition: 0.5s;
@@ -537,6 +546,8 @@ input[type="number"]::-webkit-inner-spin-button {
     justify-content: center;
     align-items: center;
     z-index: 100;
+    cursor: pointer;
+
 }
 #alarm-rings{
     position: absolute;
