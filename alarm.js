@@ -1,10 +1,3 @@
-const setVh = () => {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-};
-setVh();
-window.addEventListener('resize', setVh);
-
 // Fetching IDs/ DOM Manipulation
 let currentDay = document.getElementById("day");
 let currentDate = document.getElementById("date");
@@ -443,7 +436,7 @@ function activateDonebtn() {
 // Creating Alarm Object when all the reqired fields are filled Correctly //For Twelve hrs
 function alarmset() {
     if (isTwelveHrs) {
-        if (hourSetSuccess && minuteSetSuccess && secondSetSuccess && amPmSetSuccess ) {
+        if (hourSetSuccess && minuteSetSuccess && secondSetSuccess && amPmSetSuccess) {
             let alarmText = document.getElementById("alarm-text");
             let hourKey;
             if (amPmValue == "PM" && setHour.value < 12) {
@@ -483,7 +476,7 @@ function alarmset() {
             return;
         }
     } else if (!isTwelveHrs) {
-        if (hourSetSuccess  && minuteSetSuccess  && secondSetSuccess ) {
+        if (hourSetSuccess && minuteSetSuccess && secondSetSuccess) {
             amPmValue = "";
             let alarmText = document.getElementById("alarm-text");
             alarm = {
@@ -566,11 +559,11 @@ function deleteAlarm(dataId) {
     renderList();
 }
 
-// Handling All Clicks
+// Handling All Clicks ong the web Page
 function handleClicks(event) {
     let target = event.target;
     let fetchId = target.id;
-    
+
     if (fetchId == "darkMode" || fetchId == "darkModeflipped") {
         handleDarkMode();
     }
@@ -620,3 +613,11 @@ function handleClicks(event) {
 
 document.addEventListener("click", handleClicks);
 
+
+// To handle the vh issue in mobile phones 
+const setVh = () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+};
+setVh();
+window.addEventListener('resize', setVh);
